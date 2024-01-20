@@ -81,4 +81,5 @@ production:
   <<: *default
   database: transactions_api_production
   username: transactions_api
+  url: <%= ENV["TRANSACTIONS_API_DATABASE_URL"] %>
   password: <%= ENV["TRANSACTIONS_API_DATABASE_PASSWORD"] %>

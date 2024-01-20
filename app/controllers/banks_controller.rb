@@ -3,7 +3,7 @@ class BanksController < ApplicationController
 
   # GET /banks
   def index
-    @banks = Bank.all
+    @banks = ['Santander']
 
     render json: @banks
   end
