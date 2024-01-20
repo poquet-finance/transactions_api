@@ -10,8 +10,56 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_20_221413) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "banks", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.integer "type", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "financial_instruments", force: :cascade do |t|
+    t.bigint "person_id"
+    t.bigint "bank_id"
+    t.decimal "balance", default: "0.0", null: false
+    t.integer "instrument_type", default: 0, null: false
+    t.bigint "identifier", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bank_id"], name: "index_financial_instruments_on_bank_id"
+    t.index ["person_id"], name: "index_financial_instruments_on_person_id"
+  end
+
+  create_table "people", force: :cascade do |t|
+    t.string "identifier", default: "", null: false
+    t.string "name", default: "", null: false
+    t.string "last_name", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.bigint "person_id"
+    t.bigint "financial_instrument_id"
+    t.string "desctiption"
+    t.string "branch"
+    t.string "quota"
+    t.string "doc_number"
+    t.integer "number_of_payments"
+    t.bigint "identifier"
+    t.decimal "total", null: false
+    t.datetime "date", null: false
+    t.decimal "in", null: false
+    t.decimal "out", null: false
+    t.integer "currency", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["financial_instrument_id"], name: "index_transactions_on_financial_instrument_id"
+    t.index ["person_id"], name: "index_transactions_on_person_id"
+  end
 
 end
