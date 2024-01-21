@@ -17,4 +17,14 @@
 #  index_financial_instruments_on_person_id  (person_id)
 #
 class FinancialInstrument < ApplicationRecord
+  belongs_to :person
+  belongs_to :bank
+  has_many :transactions
+
+  validates :identifier, uniqueness: { scope: :bank_id }
+
+  enum instrument_type: {
+    bank_account: 0,
+    credit_card: 1
+  }
 end

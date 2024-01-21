@@ -40,6 +40,8 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   # For model annotations
   gem 'annotate'
+  # for debugging
+  gem 'pry'
 end
 
 group :development do

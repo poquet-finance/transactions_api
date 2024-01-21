@@ -3,6 +3,16 @@ Rails.application.routes.draw do
   resources :banks
   resources :people
   resources :transactions
+
+  namespace :cl do
+    namespace :personal_banking do
+      get :transactions
+      get :income
+      get :income_v2
+      get :products
+    end
+    post '/banco_:bank_personas/:action', to: redirect { |path_paramas, _| "/cl/personal_banking/#{path_paramas[:action]}?bank=#{path_paramas[:bank_personas]}"}
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
